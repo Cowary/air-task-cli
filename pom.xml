@@ -92,6 +92,26 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.vandermeer</groupId>
+            <artifactId>asciitable</artifactId>
+            <version>0.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micronaut.security</groupId>
+            <artifactId>micronaut-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micronaut.openapi</groupId>
+            <artifactId>micronaut-openapi</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -142,6 +162,44 @@
                         <arg>-Amicronaut.processing.module=air-task-cli</arg>
                     </compilerArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.18.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/air-task-cli.json</inputSpec>
+                            <generatorName>java-micronaut-client</generatorName>
+                            <apiPackage>org.cowary.air_task_cli.api</apiPackage>
+                            <modelPackage>org.cowary.air_task_cli.model</modelPackage>
+                            <generateApis>true</generateApis>
+                            <generateModels>true</generateModels>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <supportingFilesToGenerate>lombok.Builder</supportingFilesToGenerate>
+                            <configOptions>
+                                <sourceFolder>src/gen/java/main</sourceFolder>
+                                <dateLibrary>java8</dateLibrary>
+                                <serializationLibrary>micronaut_serde_jackson</serializationLibrary>
+                                <useJakartaEe>true</useJakartaEe>
+                                <performBeanValidation>false</performBeanValidation>
+                                <openApiNullable>false</openApiNullable>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <!--                                <skipDefaultConstructor>true</skipDefaultConstructor>-->
+                                <!--                                <immutable>true</immutable>-->
+                                <generateBuilders>true</generateBuilders>
+                                <generateConstructorWithAllArgs>true</generateConstructorWithAllArgs>
+                                <reactive>false</reactive>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

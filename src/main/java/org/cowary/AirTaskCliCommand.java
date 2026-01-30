@@ -12,6 +12,11 @@ import org.jline.reader.MaskingCallback;
 import picocli.CommandLine;
 import picocli.shell.jline3.PicocliCommands;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Slf4j
 public class AirTaskCliCommand {
 
@@ -59,4 +64,6 @@ public class AirTaskCliCommand {
             throw new RuntimeException("Ошибка ввода-вывода при запуске CLI", e);
         }
     }
+
+
 }

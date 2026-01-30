@@ -2,7 +2,9 @@ package org.cowary.config;
 
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Primary;
 import jakarta.inject.Singleton;
+import org.cowary.air_task_cli.api.ProjectControllerApi;
 import org.jline.builtins.ConfigurationPath;
 import org.jline.console.SystemRegistry;
 import org.jline.console.impl.Builtins;
@@ -58,5 +60,12 @@ public class BeanConfig {
                 .variable(LineReader.LIST_MAX, 50)
                 .build();
     }
+//
+//    @Bean
+//    @Singleton
+//    @Primary
+//    public ProjectControllerApiClient projectControllerApi() {
+//        return new ProjectControllerApiClient();
+//    }
 }
 

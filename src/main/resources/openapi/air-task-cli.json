@@ -1,0 +1,219 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://192.168.1.74:8090",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/v1/update-time": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "updateTime",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "timeId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/list": {
+      "get": {
+        "tags": [
+          "project-controller"
+        ],
+        "operationId": "getProjects",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseProjectListDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/list-by-project/{projectId}": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "taskByProject",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BoardRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiResponseProjectListDtoRs": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProjectListDtoRs"
+          }
+        }
+      },
+      "BoardRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "taskList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskListRs"
+            }
+          }
+        }
+      },
+      "ProjectDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "boardList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BoardRs"
+            }
+          }
+        }
+      },
+      "ProjectListDtoRs": {
+        "type": "object",
+        "properties": {
+          "projectList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectDtoRs"
+            }
+          }
+        }
+      },
+      "TaskDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "taskListId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "TaskListRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "boardId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDtoRs"
+            }
+          }
+        }
+      }
+    }
+  }
+}
