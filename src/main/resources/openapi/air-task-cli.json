@@ -6,15 +6,237 @@
   },
   "servers": [
     {
-      "url": "http://192.168.1.74:8090",
+      "url": "http://localhost:8090",
       "description": "Generated server url"
     }
   ],
+  "tags": [
+    {
+      "name": "Completed Weekly Task Management",
+      "description": "API для управления завершенными недельными задачами"
+    },
+    {
+      "name": "Project Management",
+      "description": "API для управления проектами"
+    },
+    {
+      "name": "Weekly Task Management",
+      "description": "API для управления недельными задачами"
+    }
+  ],
   "paths": {
+    "/api/weekly/v1/{id}": {
+      "get": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Получить недельную задачу по ID",
+        "description": "Возвращает недельную задачу с указанным ID",
+        "operationId": "getWeeklyTaskById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Обновить недельную задачу",
+        "description": "Обновляет информацию о недельной задаче с указанным ID",
+        "operationId": "updateWeeklyTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeeklyUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Удалить недельную задачу",
+        "description": "Удаляет недельную задачу с указанным ID",
+        "operationId": "deleteWeeklyTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/project/v1/{id}": {
+      "get": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Получить проект по ID",
+        "description": "Возвращает проект с указанным ID",
+        "operationId": "getProjectById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseProjectResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Обновить проект",
+        "description": "Обновляет информацию о проекте с указанным ID",
+        "operationId": "updateProject",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseProjectResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Project Management"
+        ],
+        "operationId": "deleteProject",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/update-time": {
       "post": {
         "tags": [
-          "task-controller"
+          "planka-task-controller"
         ],
         "operationId": "updateTime",
         "parameters": [
@@ -51,10 +273,106 @@
         }
       }
     },
+    "/api/weekly/v1": {
+      "post": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Создать новую недельную задачу",
+        "description": "Создает новую недельную задачу в системе",
+        "operationId": "createWeeklyTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeeklyCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/project/v1": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Создать новый проект",
+        "description": "Создает новый проект в системе",
+        "operationId": "createProject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseProjectResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/completed-weekly/v1": {
+      "post": {
+        "tags": [
+          "Completed Weekly Task Management"
+        ],
+        "summary": "Создать завершенную задачу",
+        "description": "Создает новую запись о завершенной недельной задаче",
+        "operationId": "createCompletedWeeklyTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletedWeeklyCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseCompletedWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/list": {
       "get": {
         "tags": [
-          "project-controller"
+          "planka-project-controller"
         ],
         "operationId": "getProjects",
         "responses": {
@@ -74,7 +392,7 @@
     "/v1/list-by-project/{projectId}": {
       "get": {
         "tags": [
-          "task-controller"
+          "planka-task-controller"
         ],
         "operationId": "taskByProject",
         "parameters": [
@@ -104,10 +422,565 @@
           }
         }
       }
+    },
+    "/api/weekly/v1/project/{projectId}": {
+      "get": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Получить недельные задачи по проекту",
+        "description": "Возвращает список недельных задач для указанного проекта",
+        "operationId": "getWeeklyTasksByProject",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseListWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weekly/v1/project/{projectId}/status/{status}": {
+      "get": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Получить недельные задачи по проекту и статусу",
+        "description": "Возвращает список недельных задач для указанного проекта с определенным статусом",
+        "operationId": "getWeeklyTasksByProjectAndStatus",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseListWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weekly/v1/list": {
+      "get": {
+        "tags": [
+          "Weekly Task Management"
+        ],
+        "summary": "Получить список всех недельных задач",
+        "description": "Возвращает список всех недельных задач в системе",
+        "operationId": "getAllWeeklyTasks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseListWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/project/v1/list": {
+      "get": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Получить список всех проектов",
+        "description": "Возвращает список всех проектов в системе",
+        "operationId": "getAllProjects",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseProjectListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/project/v1/list-with-weekly": {
+      "get": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Получить список проектов с недельными задачами",
+        "description": "Возвращает список всех проектов с их недельными задачами",
+        "operationId": "getProjectsWithWeeklyTasks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseProjectListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/completed-weekly/v1/{id}": {
+      "get": {
+        "tags": [
+          "Completed Weekly Task Management"
+        ],
+        "summary": "Получить завершенную задачу по ID",
+        "description": "Возвращает завершенную задачу с указанным ID",
+        "operationId": "getCompletedWeeklyTaskById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseCompletedWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Completed Weekly Task Management"
+        ],
+        "summary": "Удалить завершенную задачу",
+        "description": "Удаляет запись о завершенной задаче с указанным ID",
+        "operationId": "deleteCompletedWeeklyTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/completed-weekly/v1/weekly/{weeklyId}": {
+      "get": {
+        "tags": [
+          "Completed Weekly Task Management"
+        ],
+        "summary": "Получить завершенные задачи по weekly entity ID",
+        "description": "Возвращает список завершенных задач для указанной weekly entity",
+        "operationId": "getCompletedWeeklyTasksByWeeklyId",
+        "parameters": [
+          {
+            "name": "weeklyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseListCompletedWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/completed-weekly/v1/statistics/current-week": {
+      "get": {
+        "tags": [
+          "Completed Weekly Task Management"
+        ],
+        "summary": "Получить статистику выполнения недельных задач за текущую неделю",
+        "description": "Возвращает два списка: завершенных и не завершенных задач на текущей неделе с учетом требуемого количества",
+        "operationId": "getWeeklyTaskStatistics",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseWeeklyTaskStatisticsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/completed-weekly/v1/list": {
+      "get": {
+        "tags": [
+          "Completed Weekly Task Management"
+        ],
+        "summary": "Получить список всех завершенных недельных задач",
+        "description": "Возвращает список всех завершенных недельных задач в системе",
+        "operationId": "getAllCompletedWeeklyTasks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseListCompletedWeeklyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "WeeklyUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MIDDLE",
+              "LOW"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IN_PROGRESS",
+              "DONE"
+            ]
+          }
+        }
+      },
+      "ApiResponseWeeklyResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WeeklyResponse"
+          }
+        }
+      },
+      "WeeklyResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MIDDLE",
+              "LOW"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IN_PROGRESS",
+              "DONE"
+            ]
+          },
+          "createdTs": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedTs": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProjectUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IN_PROGRESS",
+              "DONE"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MIDDLE",
+              "LOW"
+            ]
+          }
+        }
+      },
+      "ApiResponseProjectResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProjectResponse"
+          }
+        }
+      },
+      "ProjectResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IN_PROGRESS",
+              "DONE"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MIDDLE",
+              "LOW"
+            ]
+          },
+          "createdTs": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedTs": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WeeklyCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MIDDLE",
+              "LOW"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IN_PROGRESS",
+              "DONE"
+            ]
+          }
+        }
+      },
+      "ProjectCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IN_PROGRESS",
+              "DONE"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MIDDLE",
+              "LOW"
+            ]
+          }
+        }
+      },
+      "CompletedWeeklyCreateRequest": {
+        "type": "object",
+        "properties": {
+          "weeklyEntityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "completedDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ApiResponseCompletedWeeklyResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CompletedWeeklyResponse"
+          }
+        }
+      },
+      "CompletedWeeklyResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "weeklyEntityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "weeklyEntityName": {
+            "type": "string"
+          },
+          "completedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdTs": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedTs": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "ApiResponseProjectListDtoRs": {
         "type": "object",
         "properties": {
@@ -147,7 +1020,7 @@
           }
         }
       },
-      "ProjectDtoRs": {
+      "PlankaProjectDtoRs": {
         "type": "object",
         "properties": {
           "id": {
@@ -165,18 +1038,7 @@
           }
         }
       },
-      "ProjectListDtoRs": {
-        "type": "object",
-        "properties": {
-          "projectList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProjectDtoRs"
-            }
-          }
-        }
-      },
-      "TaskDtoRs": {
+      "PlankaTaskDtoRs": {
         "type": "object",
         "properties": {
           "id": {
@@ -189,6 +1051,17 @@
           "taskListId": {
             "type": "integer",
             "format": "int64"
+          }
+        }
+      },
+      "ProjectListDtoRs": {
+        "type": "object",
+        "properties": {
+          "projectList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlankaProjectDtoRs"
+            }
           }
         }
       },
@@ -209,9 +1082,160 @@
           "tasks": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/TaskDtoRs"
+              "$ref": "#/components/schemas/PlankaTaskDtoRs"
             }
           }
+        }
+      },
+      "ApiResponseListWeeklyResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WeeklyResponse"
+            }
+          }
+        }
+      },
+      "ApiResponseProjectListResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProjectListResponse"
+          }
+        }
+      },
+      "ProjectListResponse": {
+        "type": "object",
+        "properties": {
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectResponse"
+            }
+          }
+        }
+      },
+      "ApiResponseListCompletedWeeklyResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompletedWeeklyResponse"
+            }
+          }
+        }
+      },
+      "ApiResponseWeeklyTaskStatisticsResponse": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WeeklyTaskStatisticsResponse"
+          }
+        }
+      },
+      "WeeklyTaskStatisticsResponse": {
+        "type": "object",
+        "properties": {
+          "completedTasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WeeklyWithCompletionStatus"
+            }
+          },
+          "incompleteTasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WeeklyWithCompletionStatus"
+            }
+          }
+        }
+      },
+      "WeeklyWithCompletionStatus": {
+        "type": "object",
+        "properties": {
+          "weeklyTaskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "weeklyTaskName": {
+            "type": "string"
+          },
+          "requiredCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "completedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "remainingCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "completionPercentage": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "projectName": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiResponseVoid": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorType": {
+            "type": "string"
+          },
+          "data": {}
         }
       }
     }

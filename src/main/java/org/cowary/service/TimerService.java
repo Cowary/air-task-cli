@@ -4,8 +4,11 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.cowary.air_task_cli.api.ProjectControllerApi;
-import org.cowary.air_task_cli.api.TaskControllerApi;
+import org.cowary.air_task_cli.api.PlankaProjectControllerApi;
+import org.cowary.air_task_cli.api.PlankaTaskControllerApi;
+import org.cowary.air_task_cli.api.ProjectManagementApi;
+import org.cowary.air_task_cli.model.ProjectCreateRequest;
+import org.cowary.air_task_cli.model.ApiResponseProjectResponse;
 import org.cowary.air_task_cli.model.BoardRs;
 import org.cowary.air_task_cli.model.ProjectListDtoRs;
 
@@ -18,9 +21,11 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class TimerService {
     @Inject
-    private ProjectControllerApi projectControllerApiClient;
+    private PlankaProjectControllerApi projectControllerApiClient;
     @Inject
-    public TaskControllerApi taskControllerApi;
+    public PlankaTaskControllerApi taskControllerApi;
+    @Inject
+    private ProjectManagementApi projectManagementApi;
 
     public ProjectListDtoRs getAllProjects() {
         System.out.println(projectControllerApiClient.getClass());
@@ -33,6 +38,24 @@ public class TimerService {
 
     public Boolean updateTime(final Long taskId, final Long time) {
         return taskControllerApi.updateTime(taskId, time);
+    }
+
+    /**
+     * Создает новый проект через API
+     * @param name название проекта
+     * @param status статус проекта
+     * @param priority приоритет проекта
+     * @return результат создания проекта
+     */
+    public ApiResponseProjectResponse createProject(String name,
+                                                   ProjectCreateRequest.StatusEnum status,
+                                                   ProjectCreateRequest.PriorityEnum priority) {
+        ProjectCreateRequest request = new ProjectCreateRequest()
+                .name(name)
+                .status(status)
+                .priority(priority);
+
+        return projectManagementApi.createProject(request);
     }
 
     public long processTimer(long minute) {
