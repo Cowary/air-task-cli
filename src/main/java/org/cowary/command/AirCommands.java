@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 @Command(name = "air-task", mixinStandardHelpOptions = true, version = "0.0.1-SNAPSHOT",
         description = "Air Task commands",
         subcommands = {
-        TimerCommand.class, Timer2Command.class, CreateProjectCommand.class
+        TimerCommand.class, Timer2Command.class, CreateProjectCommand.class, CreateWeeklyCommand.class, ListWeeklyCommand.class
         })
 public class AirCommands implements Runnable {
 
