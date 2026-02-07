@@ -4,6 +4,7 @@ import io.micronaut.configuration.picocli.MicronautFactory;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.cowary.command.AirCommands;
 import org.jline.console.SystemRegistry;
 import org.jline.reader.EndOfFileException;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@RequiredArgsConstructor
 public class AirTaskCliCommand {
 
     public static void main(String[] args) throws Exception {
