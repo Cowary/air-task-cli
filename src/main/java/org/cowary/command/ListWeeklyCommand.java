@@ -2,19 +2,17 @@ package org.cowary.command;
 
 import io.micronaut.core.annotation.Introspected;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.cowary.air_task_cli.model.WeeklyResponse;
 import org.cowary.service.WeeklyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;
-import static picocli.CommandLine.Parameters;
 
 /**
  * Команда для просмотра Weekly задач проекта
@@ -25,6 +23,7 @@ import static picocli.CommandLine.Parameters;
     mixinStandardHelpOptions = true
 )
 @Introspected
+@Singleton
 public class ListWeeklyCommand implements Runnable {
     
     private static final Logger logger = LoggerFactory.getLogger(ListWeeklyCommand.class);

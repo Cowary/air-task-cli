@@ -1,12 +1,12 @@
 package org.cowary.command;
 
 import jakarta.inject.Inject;
-import org.cowary.service.CompletedWeeklyService;
-import org.cowary.air_task_cli.model.WeeklyWithCompletionStatus;
+import jakarta.inject.Singleton;
 import org.cowary.air_task_cli.model.CompletedWeeklyResponse;
+import org.cowary.air_task_cli.model.WeeklyWithCompletionStatus;
+import org.cowary.service.CompletedWeeklyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -17,7 +17,8 @@ import java.util.concurrent.Callable;
 /**
  * Команда для интерактивного управления завершенными недельными задачами
  */
-@Command(name = "complete-weekly", 
+@Singleton
+@Command(name = "complete-weekly",
          description = "Интерактивная команда для отметки выполненных недельных задач",
          mixinStandardHelpOptions = true)
 public class CompleteWeeklyCommand implements Callable<Integer> {

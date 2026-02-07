@@ -2,7 +2,7 @@ package org.cowary.command;
 
 import io.micronaut.core.annotation.Introspected;
 import jakarta.inject.Inject;
-import picocli.CommandLine;
+import jakarta.inject.Singleton;
 import org.cowary.air_task_cli.model.WeeklyCreateRequest;
 import org.cowary.air_task_cli.model.WeeklyResponse;
 import org.cowary.service.WeeklyService;
@@ -15,7 +15,6 @@ import java.util.concurrent.Callable;
 
 import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;
-import static picocli.CommandLine.Parameters;
 
 /**
  * Команда для создания Weekly задач
@@ -26,6 +25,7 @@ import static picocli.CommandLine.Parameters;
     mixinStandardHelpOptions = true
 )
 @Introspected
+@Singleton
 public class CreateWeeklyCommand implements Callable<Integer> {
     
     private static final Logger logger = LoggerFactory.getLogger(CreateWeeklyCommand.class);
