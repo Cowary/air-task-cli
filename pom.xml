@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.cowary</groupId>
     <artifactId>air-task-cli</artifactId>
-    <version>0.1</version>
-    <packaging>${packaging}</packaging>
+    <version>0.0.2</version>
+<!--    <packaging>${packaging}</packaging>-->
 
     <parent>
         <groupId>io.micronaut.platform</groupId>
@@ -13,7 +13,7 @@
         <version>4.7.0</version>
     </parent>
     <properties>
-        <packaging>jar</packaging>
+<!--        <packaging>jar</packaging>-->
         <jdk.version>21</jdk.version>
         <release.version>21</release.version>
         <exec.mainClass>org.cowary.AirTaskCliCommand</exec.mainClass>
