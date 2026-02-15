@@ -1220,6 +1220,9 @@
           },
           "projectName": {
             "type": "string"
+          },
+          "completedToday": {
+            "type": "boolean"
           }
         }
       },
