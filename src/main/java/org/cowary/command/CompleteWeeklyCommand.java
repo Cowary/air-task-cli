@@ -19,6 +19,7 @@ import java.util.concurrent.Callable;
  */
 @Singleton
 @Command(name = "complete-weekly",
+        aliases = {"cw"},
         description = "Интерактивная команда для отметки выполненных недельных задач",
         mixinStandardHelpOptions = true)
 public class CompleteWeeklyCommand implements Callable<Integer> {
